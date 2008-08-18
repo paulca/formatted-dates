@@ -56,5 +56,4 @@ describe FormattedDate do
   it "should not format updated_on" do
     @test_model.updated_on_formatted.should be_nil
   end
-  
 end
