@@ -1,13 +1,48 @@
 FormattedDates
 ==============
 
-Introduction goes here.
+I flippin' hate mucking about with strftime everytime I want to format dates. I hate adding new methods messing up my models. I hate .to_formatted_string.
 
+This formatted_dates plugin is a quick acts_as hook into strftime for date fields your Rails models.
+
+Installation
+=======
+
+./script/plugin install git://github.com/paulca/formatted-dates-plugin.git
 
 Example
 =======
 
-Example goes here.
+In yer model:
+
+Account < ActiveRecord::Base
+  format_dates :timestamps
+end
+
+This will give you access to new methods with _formatted appended to the end of any standard Rails timestamps in your model (eg. created_at, updated_at, created_on, updated_on):
+
+They format using the default of "%e %B, %Y", which gives something like this:
+  updated_on_formatted => "9 April, 2003"
+  
+You can provide your own string to pass to strftime:
+
+Account < ActiveRecord::Base
+  format_dates :timestamps, :format => "%m/%d/%Y"
+end
+
+And you can pass in other date fields from your model to be formatted:
+
+Account < ActiveRecord::Base
+  format_dates :timestamps, :registered_on, :last_login_date, :format => "%m/%d/%Y"
+end
+
+You can also format multiple fields differently:
+
+Account < ActiveRecord::Base
+  format_dates :timestamps
+  format_dates :registered_on, :format => "%I:%M%p"
+  format_dates :last_login_date, :format => "%m/%d/%Y"
+end
 
 
-Copyright (c) 2008 [name of plugin creator], released under the MIT license
+Copyright (c) 2008 Paul Campbell, released under the MIT license
