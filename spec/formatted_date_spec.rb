@@ -6,6 +6,7 @@ class TestModel
   format_dates :test_date
   format_dates :test_date_with_format, :format => "%m/%d/%Y"
   format_dates :timestamps
+  format_dates :created_at, :as => :date
   
   def created_at
     Date.parse('1 April 2003')
@@ -55,5 +56,9 @@ describe FormattedDate do
   
   it "should not format updated_on" do
     @test_model.updated_on_formatted.should be_nil
+  end
+  
+  it "should add a date method" do
+    @test_model.date.should == '1 April, 2003'
   end
 end
