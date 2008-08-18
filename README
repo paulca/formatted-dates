@@ -8,7 +8,7 @@ This formatted_dates plugin is a quick acts_as hook into strftime for date field
 Installation
 =======
 
-./script/plugin install git://github.com/paulca/formatted-dates-plugin.git
+./script/plugin install git://github.com/paulca/formatted-dates.git
 
 Example
 =======
