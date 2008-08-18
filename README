@@ -44,5 +44,12 @@ Account < ActiveRecord::Base
   format_dates :last_login_date, :format => "%m/%d/%Y"
 end
 
+Finally, you can alias your formatted dates to a nice short, memorable name:
+
+Account < ActiveRecord::Base
+  format_dates :created_on, :as => :date
+end
+
+This gives you a method @account.date that is equivalent to created_on_formatted
 
 Copyright (c) 2008 Paul Campbell, released under the MIT license

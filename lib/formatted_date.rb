@@ -13,6 +13,7 @@ module FormattedDate
         format = options[:format] || "%e %B, %Y"
         as = options[:as] || nil
         args = [args].flatten
+        
         if args.include?(:timestamps)
           TIMESTAMPS.each do |timestamp|
             args << timestamp
