@@ -42,7 +42,19 @@ describe FormattedDate do
   end
   
   it "should format the timestamps" do
-    @test_model.created_at
+    @test_model.created_at_formatted.should == '1 April, 2003'
+  end
+  
+  it "should format the timestamps" do
+    @test_model.updated_at_formatted.should == '2 April, 2003'
+  end
+  
+  it "should not format created_on" do
+    @test_model.created_on_formatted.should be_nil
+  end
+  
+  it "should not format updated_on" do
+    @test_model.updated_on_formatted.should be_nil
   end
   
 end
