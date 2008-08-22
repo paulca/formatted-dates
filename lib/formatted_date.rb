@@ -11,7 +11,9 @@ module FormattedDate
     
     def format_dates(args = [], options = {})
         format = options[:format] || "%e %B, %Y"
+        filter_date = options[:filter] || nil
         as = options[:as] || nil
+        today = options[:today] || nil
         args = [args].flatten
         
         if args.include?(:timestamps)
@@ -20,22 +22,21 @@ module FormattedDate
           end
         end
       
-      unless args.empty?
-        if as
-          class_eval "
-            def #{as}
-              return #{args.first}.strftime(\"#{format}\").strip if respond_to?(:#{args.first})
-            end
-            "
-        end
-      end
-      
       args.each do |date_method|
         class_eval "
           def #{date_method}_formatted
-            return #{date_method}.strftime(\"#{format}\").strip if respond_to?(:#{date_method})
+            return_date = #{date_method}.strftime(\"#{format}\").strip if respond_to?(:#{date_method})
+            "+ (today ? "return_date = #{date_method}.strftime(\"#{today}\").strip if respond_to?(:#{date_method}) and #{date_method}.to_date == Date.today" : '')+"
+            "+(filter_date ? "return_date = return_date.#{filter_date}" : '')+"
+            return_date
           end
         "
+      end
+      
+      unless args.empty?
+        if as
+          class_eval "alias_method :#{as}, :#{args.first}_formatted"
+        end
       end
     end
 

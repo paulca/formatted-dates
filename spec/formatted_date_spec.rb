@@ -7,6 +7,11 @@ class TestModel
   format_dates :test_date_with_format, :format => "%m/%d/%Y"
   format_dates :timestamps
   format_dates :created_at, :as => :date
+  format_dates :now, :today => "%l:%M%p", :as => :nice, :filter => :downcase
+
+  def now
+    Time.parse('18:18')
+  end
   
   def created_at
     Date.parse('1 April 2003')
@@ -60,5 +65,9 @@ describe FormattedDate do
   
   it "should add a date method" do
     @test_model.date.should == '1 April, 2003'
+  end
+  
+  it "should show today differently" do
+    @test_model.nice.should == '6:18pm'
   end
 end
