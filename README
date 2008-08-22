@@ -44,6 +44,18 @@ Account < ActiveRecord::Base
   format_dates :last_login_date, :format => "%m/%d/%Y"
 end
 
+If you want to display the time for 'today' differently you can do so:
+Account < ActiveRecord::Base
+  format_dates :created_on, :today => "%l:%M%p"
+emd
+
+And if you want to filter the resulting string, you can do so too:
+
+If you want to display the time for 'today' differently you can do so:
+Account < ActiveRecord::Base
+  format_dates :created_on, :today => "%l:%M%p", :filter => :downcase # => '10:10pm'
+emd
+
 Finally, you can alias your formatted dates to a nice short, memorable name:
 
 Account < ActiveRecord::Base
