@@ -8,9 +8,18 @@ class TestModel
   format_dates :timestamps
   format_dates :created_at, :as => :date
   format_dates :now, :today => "%l:%M%p", :as => :nice, :filter => :downcase
+  format_dates [:multi_one, :multi_two], :format => "%m/%d/%Y"
 
   def now
     Time.parse('18:18')
+  end
+  
+  def multi_one
+    Date.parse('1 April 2008')
+  end
+  
+  def multi_two
+    Date.parse('2 April 2008')
   end
   
   def created_at
@@ -69,5 +78,13 @@ describe FormattedDate do
   
   it "should show today differently" do
     @test_model.nice.should == '6:18pm'
+  end
+  
+  it "should format multi one" do
+    @test_model.multi_one_formatted.should == '04/01/2008'
+  end
+  
+  it "should format multi one" do
+    @test_model.multi_two_formatted.should == '04/02/2008'
   end
 end

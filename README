@@ -33,7 +33,7 @@ end
 And you can pass in other date fields from your model to be formatted:
 
 Account < ActiveRecord::Base
-  format_dates :timestamps, :registered_on, :last_login_date, :format => "%m/%d/%Y"
+  format_dates [:timestamps, :registered_on, :last_login_date], :format => "%m/%d/%Y"
 end
 
 You can also format multiple fields differently:
