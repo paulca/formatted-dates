@@ -9,6 +9,11 @@ class TestModel
   format_dates :created_at, :as => :date
   format_dates :now, :today => "%l:%M%p", :as => :nice, :filter => :downcase
   format_dates [:multi_one, :multi_two], :format => "%m/%d/%Y"
+  format_dates :nil_date
+
+  def nil_date
+    nil
+  end
 
   def now
     Time.parse('18:18')
@@ -42,6 +47,10 @@ end
 describe FormattedDate do
   before(:each) do
     @test_model = TestModel.new
+  end
+  
+  it "should ignore a nil date" do
+    @test_model.nil_date_formatted.should == ""
   end
   
   it "should be a Date (my test mocky thing)" do

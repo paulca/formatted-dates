@@ -25,6 +25,7 @@ module FormattedDate
       args.each do |date_method|
         class_eval "
           def #{date_method}_formatted
+            return \"\" if respond_to?(:#{date_method}) and #{date_method}.nil?
             return_date = #{date_method}.strftime(\"#{format}\").strip if respond_to?(:#{date_method})
             "+ (today ? "return_date = #{date_method}.strftime(\"#{today}\").strip if respond_to?(:#{date_method}) and #{date_method}.to_date == Date.today" : '')+"
             "+(filter_date ? "return_date = return_date.#{filter_date}" : '')+"
