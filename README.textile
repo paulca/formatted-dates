@@ -1,0 +1,78 @@
+h1. FormattedDates
+
+I flippin' hate mucking about with strftime everytime I want to format dates. I hate adding new methods messing up my models. I hate .to_formatted_string.
+
+This formatted_dates plugin is a quick acts_as hook into strftime for date fields your Rails models.
+
+h2. Installation
+
+Add this to config/environment.rb :
+
+<pre><code>config.gem 'formatted-dates', :lib => 'formatted_dates', :version => '0.0.1', :source => 'http://gemcutter.org'</code></pre>
+
+and run:
+
+sudo rake gems:install
+
+or
+
+./script/plugin install git://github.com/paulca/formatted-dates.git
+
+h2. Example
+
+In yer model:
+
+<pre><code>Account < ActiveRecord::Base
+  format_dates :timestamps
+end</code></pre>
+
+This will give you access to new methods with _formatted appended to the end of any standard Rails timestamps in your model (eg. created_at, updated_at, created_on, updated_on):
+
+They format using the default of "%e %B, %Y", which gives something like this:
+  updated_on_formatted => "9 April, 2003"
+  
+You can provide your own string to pass to strftime:
+
+<pre><code>Account < ActiveRecord::Base
+  format_dates :timestamps, :format => "%m/%d/%Y"
+end</code></pre>
+
+And you can pass in other date fields from your model to be formatted:
+
+<pre><code>Account < ActiveRecord::Base
+  format_dates [:timestamps, :registered_on, :last_login_date], :format => "%m/%d/%Y"
+end</code></pre>
+
+You can also format multiple fields differently:
+
+<pre><code>Account < ActiveRecord::Base
+  format_dates :timestamps
+  format_dates :registered_on, :format => "%I:%M%p"
+  format_dates :last_login_date, :format => "%m/%d/%Y"
+end</code></pre>
+
+If you want to display the time for 'today' differently you can do so:
+<pre><code>Account < ActiveRecord::Base
+  format_dates :created_on, :today => "%l:%M%p"
+end<code></pre>
+
+And if you want to filter the resulting string, you can do so too:
+
+If you want to display the time for 'today' differently you can do so:
+<pre><code>Account < ActiveRecord::Base
+  format_dates :created_on, :today => "%l:%M%p", :filter => :downcase # => '10:10pm'
+emd</code></pre>
+
+Finally, you can alias your formatted dates to a nice short, memorable name:
+
+<pre><code>Account < ActiveRecord::Base
+  format_dates :created_on, :as => :date
+end</code></pre>
+
+This gives you a method @account.date that is equivalent to created_on_formatted
+
+Copyright (c) 2008, 2009 Paul Campbell, released under the MIT license.
+
+Follow me on Twitter: http://www.twitter.com/paulca
+
+More ramblings on http://www.pabcas.com
