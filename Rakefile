@@ -1,7 +1,7 @@
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
-    gemspec.name = "Formatted Dates"
+    gemspec.name = "formatted-dates"
     gemspec.summary = "A simple acts_as style plugin for easily formatting of dates within Rails models"
     gemspec.description = "A Rails plugin that provides _formatted methods for date fields."
     gemspec.email = "paul@rslw.com"
