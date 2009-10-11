@@ -13,14 +13,16 @@ Gem::Specification.new do |s|
   s.description = %q{A Rails plugin that provides _formatted methods for date fields.}
   s.email = %q{paul@rslw.com}
   s.extra_rdoc_files = [
-    "README"
+    "README.textile"
   ]
   s.files = [
-    "CHANGELOG",
+    ".gitignore",
+     "CHANGELOG",
      "MIT-LICENSE",
-     "README",
+     "README.textile",
      "Rakefile",
      "VERSION",
+     "formatted-dates.gemspec",
      "lib/formatted_date.rb",
      "rails/init.rb",
      "spec/formatted_date_spec.rb"
